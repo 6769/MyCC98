@@ -58,7 +58,7 @@ public class
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setLogo(new BitmapDrawable(getResources(), service.getCurrentUserAvatar()));
-        actionBar.setTitle("查看图片");
+        actionBar.setTitle(getString(R.string.activity_title_image_view));
     }
 
     @Override
@@ -118,7 +118,8 @@ public class
     private void changeRenderTypeIfNessary(Bitmap t) {
         if (t.getHeight() > 2048 || t.getWidth() > 2048) {
             mImageView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-            ToastUtils.info(PhotoViewActivity.this, "图片过大，关闭硬件加速");
+            ToastUtils.info(PhotoViewActivity.this, too_large_image_stop_acclate);
         }
     }
+    private static final String too_large_image_stop_acclate="图片过大，关闭硬件加速";
 }

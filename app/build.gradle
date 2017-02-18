@@ -13,8 +13,6 @@ repositories {
 	mavenCentral()
 }
 
-
-
 dependencies {
 	compile  fileTree(dir: 'libs', include: '*.jar')	
  	compile 'org.apache.commons:commons-lang3:3.1'
@@ -27,6 +25,7 @@ dependencies {
  	compile  project(":PhotoViewLibrary")
  	compile  project(":JazzyViewPagerLibrary")
 	compile  project(":FadingActionBarLibrary")
+	compile 'com.orhanobut:logger:1.15'
 	compile 'com.google.code.gson:gson:2.4'
 	compile ('com.octo.android.robospice:robospice:1.4.6')  {
 		exclude module: 'support-v4'

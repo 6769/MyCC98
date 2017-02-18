@@ -80,8 +80,8 @@ public class CC98ParseRepository {
  	public static final String TODAY_BOARD_ID_REGEX = "(?<=boardid=).*?(?=\">)";
  	public static final String TODAY_BOARD_NAME_REGEX  = "(?<=\">).*?(?=</a></td><td)";
  	public static final String TODAY_BOARD_TOPIC_NUM_REGEX = "(?<=align=center>)\\d{0,10}?(?=</td>)";
-
- 	public static final String NEW_TOPIC_WRAPPER_REGEX = "(?<=<img src=').*?(?=<!--<font color=\"#FF0000\">)";
+//here. updated new topic warpper;
+ 	public static final String NEW_TOPIC_WRAPPER_REGEX ="(?<=<img src=\').*?\\d{1,2}:\\d{1,2}&nbsp;";// "(?<=<img src=').*?(?=<!--<font color=\"#FF0000\">)";
  	public static final String NEW_TOPIC_TITLE_REGEX = "(?<=blank\">).*?(?=</a>)";
  	public static final String NEW_TOPIC_FACE_REGEX = "\\d{0,3}?(?=\\.gif)";
  	public static final String NEW_TOPIC_AUTHOR_REGEX = "(?<=\" target=\"_blank\">).{1,12}?(?=</a>)";
