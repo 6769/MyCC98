@@ -1,6 +1,3 @@
-/**
- * 
- */
 package tk.djcrazy.MyCC98;
 
 import android.os.Bundle;

@@ -1,10 +1,11 @@
-apply plugin: "android"
+apply plugin: "com.android.application"
 buildscript {
 	repositories {
 		mavenCentral()
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:0.12.2'
+        classpath 'com.android.tools.build:gradle:2.2.3'
+		//classpath 'com.android.tools.build:gradle:0.12.2'
 	}
 }
 
@@ -14,8 +15,7 @@ repositories {
 
 
 
-dependencies {  
- 
+dependencies {
 	compile  fileTree(dir: 'libs', include: '*.jar')	
  	compile 'org.apache.commons:commons-lang3:3.1'
     compile ('de.keyboardsurfer.android.widget:crouton:1.8.1') {
@@ -27,44 +27,32 @@ dependencies {
  	compile  project(":PhotoViewLibrary")
  	compile  project(":JazzyViewPagerLibrary")
 	compile  project(":FadingActionBarLibrary")
-	compile 'com.google.code.gson:gson:2.2.4'
+	compile 'com.google.code.gson:gson:2.4'
 	compile ('com.octo.android.robospice:robospice:1.4.6')  {
 		exclude module: 'support-v4'
 	}
 }
 	
 android {
-
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
     }
  	compileSdkVersion 16
-	buildToolsVersion "20"
+	buildToolsVersion "25.0.2"
 	defaultConfig {
-
-		minSdkVersion 8
+		minSdkVersion 14
 		targetSdkVersion 16
+		versionCode 46
+		versionName "3.2.13"
 	}
 
-    signingConfigs {
-		releaseConfig {
-            storeFile file("key.keystore")
-            storePassword signPwd
-            keyAlias signKeyAlias
-            keyPassword signKeyPwd
-        }
-    }
-    lintOptions {
-        abortOnError false
-    }
     buildTypes {
-		debug {
- 		}
+		
 		release {
-		    runProguard true
+			minifyEnabled false
 			proguardFile ('proguard-project.txt')
-			signingConfig signingConfigs.releaseConfig
+		
  		}
 	}
 }

@@ -38,7 +38,7 @@ License
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
     
-    http://www.apache.org/licenses/LICENSE-2.0
+    http://www.apache.org/licenses/LICENSE-2.0.txt
     
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -56,4 +56,4 @@ License
 [8]: https://github.com/twotoasters/JazzyListView
 [9]: https://github.com/jfeinstein10/JazzyViewPager
 [10]: https://github.com/astuetz/PagerSlidingTabStrip
-[11]: https://github.com/chrisbanes/PhotoView
+[11]: https://github.com/chrisbanes/PhotoView 

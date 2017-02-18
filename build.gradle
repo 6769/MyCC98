@@ -1,9 +1,12 @@
+
+
 buildscript {
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.12.2'
+        classpath 'com.android.tools.build:gradle:2.2.3'
+        //classpath 'com.android.tools.build:gradle:0.12.2'
     }
 }
 
@@ -12,9 +15,5 @@ allprojects {
 
     repositories {
         mavenCentral()
-    }
- 
-    tasks.withType(Compile) {
-        options.encoding = 'UTF-8'
     }
 }

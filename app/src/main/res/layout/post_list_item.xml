@@ -29,8 +29,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
                 android:ellipsize="end"
-                android:singleLine="true"
-                android:text="Test post topic, 要长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长" />
+                android:maxLine="true"
+                android:text="Test post topic---------------------------------------------------" />
 
             <Button
                 android:layout_width="0.1dp"
