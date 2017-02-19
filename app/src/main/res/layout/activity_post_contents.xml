@@ -21,7 +21,9 @@
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_marginTop="@dimen/abs__action_bar_default_height"
-            android:clickable="false"></LinearLayout>
+            android:clickable="false">
+
+        </LinearLayout>
     </FrameLayout>
 
     <LinearLayout

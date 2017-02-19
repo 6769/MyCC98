@@ -13,6 +13,7 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -97,6 +98,7 @@ public class NewCC98Service {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 listener.onRequestError("更新遇到问题");
+                Logger.e(getClass().getSimpleName(),"更新遇到问题");
             }
         });
         request.setTag(tag);

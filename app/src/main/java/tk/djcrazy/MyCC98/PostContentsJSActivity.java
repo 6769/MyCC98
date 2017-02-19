@@ -47,6 +47,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.google.inject.Inject;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.orhanobut.logger.Logger;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -77,6 +78,7 @@ import tk.djcrazy.libCC98.util.RequestResultListener;
 public class PostContentsJSActivity extends BaseActivity implements View.OnClickListener,
 		OnScrollChangedCallback, RequestResultListener<List<PostContentEntity>> {
 	private static final String TAG = "PostContentsJSActivity";
+    public static final String sp=" |";
 	private static final String JS_INTERFACE = "PostContentsJSActivity";
 
 	public static final int LAST_PAGE = 32767;
@@ -187,7 +189,7 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
 				Method method = ObservableWebView.class.getMethod(name);
 				method.invoke(webView);
 			} catch (Exception e) {
-				Log.e("Invocation Target Exception: " + name, e.getMessage());
+				Logger.e("Invocation Target Exception: " + name, e.getMessage());
 			}
 		}
 	}
@@ -195,8 +197,9 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void onRequestComplete(List<PostContentEntity> result) {
+        //TODO:fix male/female problems;
         mContentEntities = result;
-        PostContentEntity info = result.get(0);
+        PostContentEntity info = result.get(0);//post topic info;
         totalPageNum = info.getTotalPage();
         if (currPageNum > totalPageNum || currPageNum == LAST_PAGE) {
             currPageNum = totalPageNum;
@@ -312,8 +315,11 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
 				if (!url.startsWith("http")) {
 					url = service.getDomain() + url;
 				}
-				if (url.endsWith(".jpg") | url.endsWith(".png")
-						| url.endsWith(".bmp")) {
+				if (url.endsWith(".jpg")
+                        | url.endsWith(".png")
+						| url.endsWith(".bmp")
+                        | url.endsWith(".gif")
+                        ) {
 					startActivity(PhotoViewActivity.createIntent(url));
 				} else if (UrlUtils.isPostContentLink(url)) {
 					startActivity(UrlUtils.getPostContentIntent(url));
@@ -339,6 +345,7 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
 			}
 		});
  		webView.setBackgroundColor(Color.parseColor("#e3e3e3"));
+
 	}
 
 	/**
@@ -527,6 +534,7 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
 	private void viewUserInfo(String username) {
 		Intent intent = new Intent(this, ProfileActivity.class);
 		intent.putExtra("userName", username);
+		Logger.i(TAG,getClass().getSimpleName()+sp+username);
 		startActivity(intent);
 	}
 

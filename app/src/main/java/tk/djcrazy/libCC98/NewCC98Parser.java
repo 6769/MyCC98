@@ -117,6 +117,7 @@ public class NewCC98Parser {
 		postInfoEntity.setBoardName(Html.fromHtml(postInfoList.get(1)).toString());
 		postInfoEntity.setTotalPage((int) Math.ceil(Integer.parseInt(postInfoList.get(2)) / 10.0));
 		list.add(postInfoEntity);
+
 		// get each reply info
 		List<String> contentHtml = getMatchedStringList(POST_CONTENT_WHOLE_REGEX, html, -1);
 		for (String reply : contentHtml) {
@@ -144,11 +145,15 @@ public class NewCC98Parser {
 			}
 			{
 				String sex = getMatchedString(POST_CONTENT_GENDER_REGEX, reply);
-				if ("Male".equals(sex)) {
+				if (!sex.toLowerCase().contains("female")) {
+                    // String sex may contain "ofMale","ofFeMale","Male","Female";
+                    // directly use "".equal() is not safe;
+                    //sex.contains("Female");
 					entity.setGender(Gender.MALE);
 				} else {
 					entity.setGender(Gender.FEMALE);
 				}
+
 			}
 			list.add(entity);
 		}
