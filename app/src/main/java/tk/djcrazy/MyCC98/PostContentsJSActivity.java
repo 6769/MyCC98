@@ -197,7 +197,7 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void onRequestComplete(List<PostContentEntity> result) {
-        //TODO:fix male/female problems;
+        //TODO:fix markdown unsupported problems;
         mContentEntities = result;
         PostContentEntity info = result.get(0);//post topic info;
         totalPageNum = info.getTotalPage();

@@ -77,6 +77,11 @@ width: 20px;
 	font-size: 10pt;
 }
 
+.post-content img {
+    height: auto;
+    max-width: 100%;
+}
+
 .post {
 	margin: 10px 15px 15px 15px;
  	padding: 10px 10px 10px 10px;
