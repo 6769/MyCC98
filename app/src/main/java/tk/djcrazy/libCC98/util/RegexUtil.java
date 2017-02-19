@@ -12,7 +12,8 @@ import com.orhanobut.logger.Logger;
 import tk.djcrazy.libCC98.exception.ParseContentException;
 
 public final class RegexUtil {
-    public static final String PraseInfoError="Content Not extracted";
+    public static final String PraseInfoNotFound="0098";
+    public static final String sp=" |";
 
 	/**
 	 * @param regex
@@ -27,11 +28,16 @@ public final class RegexUtil {
 		if (matcher.find()) {
 			return matcher.group().trim();
 		} else {
-			//Log.e(RegexUtil.class.getSimpleName(), "getMatchedString regex: "+regex);
 
-            Logger.e(RegexUtil.class.getSimpleName(),"getMatchedString regex: "+regex);
-            Log.e(RegexUtil.class.getSimpleName(), "getMatchedString String: "+content);
-            return "0";
+            StringBuilder regx_info=new StringBuilder("getMatchedString regex: ");
+            regx_info
+                    .append(regex)
+                    .append(sp)
+                    .append(String.valueOf(regex.length()));
+
+            Logger.t(RegexUtil.class.getSimpleName()).i(regx_info.toString());
+            //Logger.t(RegexUtil.class.getSimpleName()).e("getMatchedString String: "+content);
+            return PraseInfoNotFound;
 
 		}
 	}

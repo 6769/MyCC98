@@ -20,7 +20,7 @@
             android:layout_marginTop="10dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="qqqqq" 
+            android:text=""
             android:textColor="@color/text_light_white"
             android:textSize="14sp"/>
     </LinearLayout>

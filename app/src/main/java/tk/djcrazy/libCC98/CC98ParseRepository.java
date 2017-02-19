@@ -18,7 +18,9 @@ public class CC98ParseRepository {
 	public static final String POST_CONTENT_POST_TIME_REGEX = "(?<=\"></a>).{10,55}?(?=</td>)";
 	public static final String POST_CONTENT_GENDER_REGEX = "(?<=pic/).{0,5}?Male(?=\\.gif)";
  	public static final String POST_CONTENT_REPLY_ID_REGEX = "";
- 	
+
+	public static final String POST_CONTENT_ITEM_MARKDOWN_SYNTAX_CHECK="<div class=\"md-read\" style=\"background-color: transparent;\" id=\"\\w+\">";
+ 	public static final String POST_CONTENT_ITEM_MARKDOWN_REGEX="<div class=\"md-read\" style=\"background-color: transparent;\" id=\"\\w+\">\\s*<textarea style=\"display:none;\" name=\"mdcontent\">[\\s\\S]*?</textarea>\\s*</div>";
  	
  	//post list regex string
  	public static final String POST_LIST_POST_TYPE_REGEX= "(?<=alt=\").{1,20}?(?=\" />)|(?<=alt=\").{1,20}?(?=\">)";

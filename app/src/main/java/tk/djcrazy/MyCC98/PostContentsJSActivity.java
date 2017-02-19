@@ -556,6 +556,9 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
 		startActivityForResult(intent, 1);
 	}
 
+    /*
+    * Merge post information into a html String, in a word ,release content and show in WebView;
+    * */
 	private String assemblyContent(List<PostContentEntity> list) {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean showUserAvatar = sharedPref.getBoolean(SettingsActivity.SHOW_USER_AVATAR, false);

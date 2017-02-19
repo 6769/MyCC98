@@ -166,6 +166,13 @@ public class PostContentEntity implements Serializable {
 		this.postTime = postTime;
 	}
 
+    public void setSupportMarkDownSyntax(boolean v){
+        supportMarkDownSyntax=v;
+    }
+    public boolean getSupportMarkDownSyntax(){
+        return supportMarkDownSyntax;
+    }
+
 	private String postTopic = "";
 	private String boardName = "";
 	private int totalPage = 0;
@@ -176,5 +183,6 @@ public class PostContentEntity implements Serializable {
 	private String postFace = "face7.gif";
 	private Date postTime = new Date();
 	private Gender gender = Gender.MALE;
+    private boolean supportMarkDownSyntax=false;
 	private int relpyId=0;
 }

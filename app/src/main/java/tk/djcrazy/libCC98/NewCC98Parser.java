@@ -35,6 +35,7 @@ import tk.djcrazy.libCC98.util.DateFormatUtil;
 import tk.djcrazy.libCC98.util.RegexUtil;
 import tk.djcrazy.libCC98.util.StringUtil;
 
+/*
 import static tk.djcrazy.libCC98.CC98ParseRepository.HOT_TOPIC_BOARD_ID_REGEX;
 import static tk.djcrazy.libCC98.CC98ParseRepository.HOT_TOPIC_BOARD_NAME_WITH_AUTHOR_REGEX;
 import static tk.djcrazy.libCC98.CC98ParseRepository.HOT_TOPIC_CLICK_REGEX;
@@ -84,7 +85,8 @@ import static tk.djcrazy.libCC98.CC98ParseRepository.TODAY_POST_NUMBER_REGEX;
 import static tk.djcrazy.libCC98.CC98ParseRepository.USER_PROFILE_AVATAR_REGEX;
 import static tk.djcrazy.libCC98.CC98ParseRepository.USER_PROFILE_GENERAL_PROFILE_REGEX;
 import static tk.djcrazy.libCC98.CC98ParseRepository.USER_PROFILE_ONLINE_INFO_REGEX;
-import static tk.djcrazy.libCC98.CC98ParseRepository.USER_PROFILE_PERSON_PROFILE_REGEX;
+*/
+import static tk.djcrazy.libCC98.CC98ParseRepository.*;
 import static tk.djcrazy.libCC98.util.DateFormatUtil.convertStringToDateInPostContent;
 import static tk.djcrazy.libCC98.util.RegexUtil.getMatchedString;
 import static tk.djcrazy.libCC98.util.RegexUtil.getMatchedStringList;
@@ -125,7 +127,24 @@ public class NewCC98Parser {
 			try {
 				entity.setUserName(Html.fromHtml(getMatchedString(POST_CONTENT_USERNAME_REGEX, reply))
 					.toString());
-				entity.setPostContent(getMatchedString(POST_CONTENT_POST_CONTENT_REGEX, reply));
+
+
+                //solve markdown parse problems
+                if(getMatchedString(POST_CONTENT_ITEM_MARKDOWN_SYNTAX_CHECK,reply)
+                        .equals(RegexUtil.PraseInfoNotFound)){//no markdown
+
+                    entity.setSupportMarkDownSyntax(false);
+                    entity.setPostContent(getMatchedString(POST_CONTENT_POST_CONTENT_REGEX, reply));
+                }else {
+                    entity.setSupportMarkDownSyntax(true);
+                    //entity.setPostContent("FoundMarkDown");
+                    StringBuilder markdownContent=new StringBuilder(getMatchedString(POST_CONTENT_ITEM_MARKDOWN_REGEX, reply));
+
+                    entity.setPostContent(markdownContent.toString());
+                }
+
+
+
 				entity.setPostTitle(getMatchedString(POST_CONTENT_POST_TITLE_REGEX, reply));
  				entity.setPostFace(getMatchedString(POST_CONTENT_POST_FACE_REGEX, reply));
  				entity.setPostTime(convertStringToDateInPostContent(getMatchedString(
@@ -135,7 +154,9 @@ public class NewCC98Parser {
  			}
 			try {
 				String avatarLink = getMatchedString(POST_CONTENT_USER_AVATAR_LINK_REGEX, reply);
-				if (!avatarLink.contains("http://")) {
+				if (!
+                        (avatarLink.contains("http://")||avatarLink.contains("https://"))
+                        ) {
 					avatarLink = cc98UrlManager.getClientUrl() + avatarLink;
 				}
 				entity.setUserAvatarLink(avatarLink);
