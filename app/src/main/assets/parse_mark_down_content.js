@@ -1,3 +1,13 @@
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false
+});
 function parse_markdown_content(){
         var post_content_div_list_with_markdown=document.getElementsByClassName("md-read");
         /*var got_markdown=post_content_div_list_with_markdown.length;*/

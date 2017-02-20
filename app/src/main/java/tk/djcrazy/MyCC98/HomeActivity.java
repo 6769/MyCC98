@@ -94,7 +94,8 @@ public class HomeActivity extends BaseSlidingFragmentActivity  {
             FragmentTransaction t = this.getSupportFragmentManager().beginTransaction();
             t.replace(R.id.home_behind_view, new HomeBehindMenuFragment()).commit();
         }
-        requestForUpdateInfo();
+        //Disabled:unsupported position;
+        //requestForUpdateInfo();
         requestForInboxInfo();
     }
 

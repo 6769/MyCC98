@@ -49,6 +49,7 @@ import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.orhanobut.logger.Logger;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Method;
@@ -468,19 +469,22 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
         AlertDialog alert = builder.create();
         alert.show();
     }
-	private void showContentDialog(final int index, int which) {
+	private void showContentDialog(final int index,final int which) {
 		final PostContentEntity item = mContentEntities.get(index);
 		switch (which) {
 		case 0:
+
 			// quote & reply
-			String tmp = item.getPostContent().replaceAll("(<br>|<BR>)", "\n");
+			String tmpcoveredContent = item.getPostContent().replaceAll("(<br>|<BR>)", "\n");
 			quoteReply(item.getUserName(), DateFormatUtil.convertDateToString(
-					item.getPostTime(), false), tmp, index, currPageNum);
+					item.getPostTime(), false), tmpcoveredContent, index, currPageNum);
 			break;
+
 		case 1:
 			// send pm
 			sendPm(item.getUserName());
 			break;
+
 		case 2:
 			AlertDialog.Builder builder = new AlertDialog.Builder(
 					PostContentsJSActivity.this);
@@ -503,6 +507,7 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
 					});
 			builder.create().show();
 			break;
+
 		case 3:
 			// view user info
 			viewUserInfo(item.getUserName());

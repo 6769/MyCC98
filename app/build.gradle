@@ -5,7 +5,7 @@ buildscript {
 	}
 	dependencies {
         classpath 'com.android.tools.build:gradle:2.2.3'
-		//classpath 'com.android.tools.build:gradle:0.12.2'
+
 	}
 }
 
@@ -15,15 +15,18 @@ repositories {
 
 dependencies {
 	compile  fileTree(dir: 'libs', include: '*.jar')	
- 	compile 'org.apache.commons:commons-lang3:3.1'
-    compile ('de.keyboardsurfer.android.widget:crouton:1.8.1') {
-        exclude module: 'support-v4'
+ 	compile 'org.apache.commons:commons-lang3:3.5'
+    compile ('de.keyboardsurfer.android.widget:crouton:1.8.5') {
+        exclude group: 'com.google.android', module: 'support-v4'
     }
 	compile  project(":AndroidPullToRefreshLibrary")
 	compile  project(":PagerSlidingTabStripLibrary")
 	compile  project(":SwipeBackLayoutLibrary")
  	compile  project(":PhotoViewLibrary")
  	compile  project(":JazzyViewPagerLibrary")
+
+
+    //compile 'com.github.manuelpeinado.fadingactionbar:fadingactionbar:3.1.2'
 	compile  project(":FadingActionBarLibrary")
 	compile 'com.orhanobut:logger:1.15'
 	compile 'com.google.code.gson:gson:2.4'
@@ -48,11 +51,16 @@ android {
 	}
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+        }
 		
 		release {
 			minifyEnabled false
-			proguardFile ('proguard-project.txt')
-		
+            shrinkResources false
+			//proguardFile ('proguard-project.txt')
+
  		}
 	}
 }

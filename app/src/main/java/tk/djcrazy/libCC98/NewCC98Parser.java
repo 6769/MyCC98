@@ -6,6 +6,8 @@ import android.util.Log;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import ch.boye.httpclientandroidlib.ParseException;
 import ch.boye.httpclientandroidlib.client.ClientProtocolException;
 
@@ -137,10 +139,10 @@ public class NewCC98Parser {
                     entity.setPostContent(getMatchedString(POST_CONTENT_POST_CONTENT_REGEX, reply));
                 }else {
                     entity.setSupportMarkDownSyntax(true);
-                    //entity.setPostContent("FoundMarkDown");
-                    StringBuilder markdownContent=new StringBuilder(getMatchedString(POST_CONTENT_ITEM_MARKDOWN_REGEX, reply));
-
-                    entity.setPostContent(markdownContent.toString());
+                    String tmpcoveredContent=getMatchedString(POST_CONTENT_ITEM_MARKDOWN_REGEX, reply).replaceAll("\\s*</textarea>\\s*</div>","</textarea></div>");
+                    //convert html-encrypted to normal code
+                    String coveredContent = StringEscapeUtils.unescapeHtml4(tmpcoveredContent);
+                    entity.setPostContent(coveredContent);
                 }
 
 

@@ -30,6 +30,7 @@ import ch.boye.httpclientandroidlib.entity.mime.MultipartEntity;
 import ch.boye.httpclientandroidlib.entity.mime.content.FileBody;
 import ch.boye.httpclientandroidlib.entity.mime.content.StringBody;
 import ch.boye.httpclientandroidlib.impl.cookie.BasicClientCookie;
+import tk.djcrazy.MyCC98.R;
 import tk.djcrazy.MyCC98.application.MyApplication;
 import tk.djcrazy.MyCC98.config.Config;
 import tk.djcrazy.libCC98.data.BoardEntity;
@@ -85,7 +86,8 @@ public class NewCC98Service {
     }
 
     public void submitUpdateRequest(Object tag, final RequestResultListener<JSONObject> listener) {
-        Request request = new StringRequest(Request.Method.GET, Config.UPDATE_LINK,new Response.Listener<String>() {
+        final String updateLink=getApplication().getApplicationContext().getString(R.string.application_update_link);
+        Request request = new StringRequest(Request.Method.GET, updateLink,new Response.Listener<String>() {
             @Override
             public void onResponse(String result) {
                 try {
@@ -97,8 +99,8 @@ public class NewCC98Service {
         },new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                listener.onRequestError("更新遇到问题");
-                Logger.e(getClass().getSimpleName(),"更新遇到问题");
+                //listener.onRequestError("更新遇到问题");
+                Logger.e("更新遇到问题 "+updateLink);
             }
         });
         request.setTag(tag);

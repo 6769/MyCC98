@@ -37,6 +37,8 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import com.github.rtyley.android.sherlock.roboguice.fragment.RoboSherlockFragment;
 
 import android.support.v4.app.FragmentManager;
+import android.widget.Toast;
+
 import com.google.inject.Inject;
  
 public class HomeBehindMenuFragment extends RoboSherlockFragment implements OnItemLongClickListener, OnItemClickListener, android.view.View.OnClickListener {
@@ -124,7 +126,11 @@ public class HomeBehindMenuFragment extends RoboSherlockFragment implements OnIt
 			//Intent intent1 = builder.requestType(EditActivity.REQUEST_PM)
 			//		.pmToUser("MyCC.98").pmTitle("MyCC98软件反馈").toIntent();
 			//startActivity(intent1);
-            showFeedbackDialog();
+
+            String msgshowFeedbackDialog="详情见论坛版面置顶客户端下载帖~";
+            mkToast(msgshowFeedbackDialog,false);
+
+            //showFeedbackDialog();
 			break;
 		case R.id.home_menu_profile:
 			Intent profiIntent = new Intent();
@@ -141,6 +147,12 @@ public class HomeBehindMenuFragment extends RoboSherlockFragment implements OnIt
 	}
 
     private void showFeedbackDialog() {
+
+
+
+
+        //2017-02-20 15:18:05 removed function;
+
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FeedbackDialog feedbackDialog = new FeedbackDialog();
         String username = service.getCurrentUserName();
@@ -172,4 +184,11 @@ public class HomeBehindMenuFragment extends RoboSherlockFragment implements OnIt
 		}
 		return true;
 	}
+
+    private void mkToast(String msg,boolean showshort){
+        if(showshort)
+            Toast.makeText(getActivity(),msg,Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(getActivity(),msg,Toast.LENGTH_LONG).show();
+    }
 }
