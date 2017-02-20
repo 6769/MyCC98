@@ -198,7 +198,6 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void onRequestComplete(List<PostContentEntity> result) {
-        //TODO:fix markdown unsupported problems;
         mContentEntities = result;
         PostContentEntity info = result.get(0);//post topic info;
         totalPageNum = info.getTotalPage();
@@ -490,7 +489,7 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
 					PostContentsJSActivity.this);
 			builder.setTitle("提示");
 			builder.setMessage(Html.fromHtml("确认添加 " + item.getUserName()
-					+ " 为好友？"));
+					+ " 为好友?"));
 			builder.setPositiveButton("确定",
 					new DialogInterface.OnClickListener() {
 

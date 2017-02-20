@@ -91,8 +91,8 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
     private static final int CONTENT_MAX_LENGTH = 16240;
     private static final int CAMERA_WITH_DATA = 3023;
     private static final int PHOTO_PICKED_WITH_DATA = 3021;
-    /* image upload 500KB limited */
-    private static final long MAX_IMAGE_SIZE_IN_BYTE = 500 * 1024;
+    /* image upload 2mb limited */
+    private static final long MAX_IMAGE_SIZE_IN_BYTE = 2 * 1024 * 1024;
 
     /* 拍照的照片存储位置 */
     private static final File PHOTO_DIR = new File(
@@ -462,6 +462,7 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
                 ensure();
                 break;
             case R.id.edit_btn_at:
+                //TODO: add edit posted content function;
                 ToastUtils.info(this, "@功能暂未完成");
                 int cursor = replyContentEditText.getSelectionStart();
                 replyContentEditText.getText().insert(cursor, "@");
