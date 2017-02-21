@@ -41,29 +41,39 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
     }
- 	compileSdkVersion 16
-	buildToolsVersion "25.0.2"
-	defaultConfig {
-		minSdkVersion 14
-		targetSdkVersion 16
-		versionCode getSelfDefinedVersion("code")
-		versionName getSelfDefinedVersion("name")
+    compileSdkVersion 16
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 16
+        versionCode getSelfDefinedVersion("code")
+        versionName getSelfDefinedVersion("name")
 
-	}
+    }
 
     buildTypes {
         debug {
             minifyEnabled false
             shrinkResources false
         }
-		
-		release {
-			minifyEnabled false
-            shrinkResources false
-			//proguardFile ('proguard-project.txt')
 
- 		}
-	}
+        release {
+            minifyEnabled false
+            shrinkResources false
+            //proguardFile ('proguard-project.txt')
+
+        }
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                //这里修改apk文件名
+                def fileName = "mycc98-${defaultConfig.versionName}.apk"
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    }
 }
 
 

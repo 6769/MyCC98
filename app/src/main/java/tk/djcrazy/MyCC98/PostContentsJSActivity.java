@@ -468,6 +468,9 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+
+
 	private void showContentDialog(final int index,final int which) {
 		final PostContentEntity item = mContentEntities.get(index);
 		switch (which) {
@@ -481,6 +484,10 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
 
 		case 1:
 			// send pm
+			if (item.getUserName().contains(getString(R.string.anonymousBoard))){
+                Toast.makeText(this,getString(R.string.anonymousBoardToast),Toast.LENGTH_SHORT).show();
+                break;
+            }
 			sendPm(item.getUserName());
 			break;
 

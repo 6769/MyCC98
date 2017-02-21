@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.Html.ImageGetter;
 import android.text.Spannable;
@@ -551,8 +552,10 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
     }
 
     private void doPickPhotoFromGallery() {
+
+
         try {
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("image/*");
             startActivityForResult(intent, PHOTO_PICKED_WITH_DATA);
 
@@ -580,10 +583,22 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
         switch (requestCode) {
             case PHOTO_PICKED_WITH_DATA:
                 Uri uri = data.getData();
-                ContentResolver cr = this.getContentResolver();
-                Cursor cursor = cr.query(uri, null, null, null, null);
-                cursor.moveToFirst();
-                String picURI = cursor.getString(cursor.getColumnIndex("_data"));
+                String picURI;
+
+
+
+                if (Build.VERSION.SDK_INT>21){
+                    //after kitkat;
+                    picURI=getImagePathOnKitKat(uri);
+
+                }else {
+                    //before kitkat;
+                    picURI = getImagePath(uri,null);
+
+                }
+
+
+
                 Log.i(TAG,picURI);
 
                 // doUploadPicture(new File(picURI));
@@ -619,7 +634,7 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
                     doUploadPicture(mCurrentPhotoFile);
 
                 } catch (IOException e) {
-                    ToastUtils.alert    (this, "照片处理失败");
+                    ToastUtils.alert    (this, "拍摄图片处理失败");
                     //e.printStackTrace();
                     Logger.t(TAG).e("CAMERA_WITH_DATA",e);
                 }
@@ -627,6 +642,29 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
             default:
                 break;
         }
+    }
+
+    private String getImagePath(Uri uri,String selection){
+        String path=null;
+        Cursor cursor=getContentResolver().query(uri,null,selection,null,null);
+        if (cursor!=null){
+            if (cursor.moveToFirst()){
+                path=cursor.getString(cursor.getColumnIndex(
+                        MediaStore.Images.Media.DATA));
+            }
+            cursor.close();
+        }
+
+        return path;
+    }
+
+    private String getImagePathOnKitKat(Uri uri){
+        String path=null;
+
+
+
+
+        return path;
     }
 
 
