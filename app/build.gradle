@@ -26,8 +26,9 @@ dependencies {
  	compile  project(":JazzyViewPagerLibrary")
 
 
-    //compile 'com.github.manuelpeinado.fadingactionbar:fadingactionbar:3.1.2'
+
 	compile  project(":FadingActionBarLibrary")
+	//compile 'com.squareup.okhttp3:okhttp:3.6.0'
 	compile 'com.orhanobut:logger:1.15'
 	compile 'com.google.code.gson:gson:2.8.0'
 	compile ('com.octo.android.robospice:robospice:1.4.6')  {
@@ -75,7 +76,7 @@ def getSelfDefinedVersion(type) {
     int cccc = process.getText().toInteger()
 
     if ("code".equals(type)) {
-        aa * 100000 + bb * 10000 + cccc
+        aa * 10000 + bb * 100 + cccc
         //main version code
     } else if ("name".equals(type)) {
         String today = new Date().format("yyMMdd")

@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.orhanobut.logger.Logger;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -186,9 +187,11 @@ public class CC98ClientImpl implements ICC98Client {
             ParseContentException {
         HttpPost post = new HttpPost(manager.getUploadPictureUrl());
         MultipartEntity reqEntity = new MultipartEntity();
+        reqEntity.addPart("autoExpand",new StringBody("0") );
         reqEntity.addPart("act", new StringBody("upload"));
         reqEntity.addPart("fname", new StringBody(picFile.getName()));
         reqEntity.addPart("file1", new FileBody(picFile));
+        reqEntity.addPart("Submit",new StringBody("上传"));
         post.setEntity(reqEntity);
         HttpResponse response = getHttpClient().execute(post);
         String sTotalString = EntityUtils.toString(response.getEntity());
@@ -196,9 +199,12 @@ public class CC98ClientImpl implements ICC98Client {
             Log.e(TAG, sTotalString);
             throw new IllegalStateException("upload error");
         }
-        return RegexUtil.getMatchedString(
-                CC98ParseRepository.UPLOAD_PIC_ADDRESS_REGEX, sTotalString)
-                .replace(",1", "");
+        Logger.t(TAG).d(sTotalString);
+        String uploadedImageURL=RegexUtil.getMatchedString(
+                CC98ParseRepository.UPLOAD_PIC_ADDRESS_REGEX,
+                sTotalString);
+
+        return String.format(CC98ParseRepository.UPLOAD_PIC_ADDRESS_TEMPLATE,uploadedImageURL);
     }
 
     @Override

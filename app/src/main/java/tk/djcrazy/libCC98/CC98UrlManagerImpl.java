@@ -70,7 +70,8 @@ public class CC98UrlManagerImpl implements ICC98UrlManager {
 
 	@Override
 	public String getUploadPictureUrl() {
-		return getClientPrefix() + "saveannouce_upfile.asp?boardid=10";
+		//TODO:upload image port;
+		return getClientPrefix() + "saveannouce_upfile.asp?boardid=184";
 	}
 
 	@Override

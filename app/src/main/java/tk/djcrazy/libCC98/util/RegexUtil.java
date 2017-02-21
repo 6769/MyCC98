@@ -14,6 +14,8 @@ import tk.djcrazy.libCC98.exception.ParseContentException;
 public final class RegexUtil {
     public static final String PraseInfoNotFound="0098";
     public static final String sp=" |";
+    private static final String logger_info_header ="getMatchedString regex Not Found:";
+    private static StringBuilder regx_info=new StringBuilder(logger_info_header);
 
 	/**
 	 * @param regex
@@ -29,15 +31,16 @@ public final class RegexUtil {
 			return matcher.group().trim();
 		} else {
 
-            StringBuilder regx_info=new StringBuilder("getMatchedString regex: ");
-            regx_info
+
+            regx_info.delete(logger_info_header.length(),regx_info.length())
                     .append(regex)
                     .append(sp)
                     .append(String.valueOf(regex.length()));
 
             Logger.t(RegexUtil.class.getSimpleName()).i(regx_info.toString());
             //Logger.t(RegexUtil.class.getSimpleName()).e("getMatchedString String: "+content);
-            return PraseInfoNotFound;
+			throw new ParseContentException(PraseInfoNotFound);
+
 
 		}
 	}

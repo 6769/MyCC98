@@ -46,8 +46,10 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.widget.IcsListPopupWindow;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.inject.Inject;
+import com.orhanobut.logger.Logger;
 
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -91,6 +93,7 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
     private static final int CONTENT_MAX_LENGTH = 16240;
     private static final int CAMERA_WITH_DATA = 3023;
     private static final int PHOTO_PICKED_WITH_DATA = 3021;
+
     /* image upload 2mb limited */
     private static final long MAX_IMAGE_SIZE_IN_BYTE = 2 * 1024 * 1024;
 
@@ -581,27 +584,44 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
                 Cursor cursor = cr.query(uri, null, null, null, null);
                 cursor.moveToFirst();
                 String picURI = cursor.getString(cursor.getColumnIndex("_data"));
+                Log.i(TAG,picURI);
+
                 // doUploadPicture(new File(picURI));
-                mCurrentPhotoFile = new File(picURI);
+
                 try {
-                    while (mCurrentPhotoFile.length() > MAX_IMAGE_SIZE_IN_BYTE) {
-                        doCompressPhoto();
+                    mCurrentPhotoFile = new File(picURI);
+                    if (mCurrentPhotoFile.length() > MAX_IMAGE_SIZE_IN_BYTE){
+                        String tempLocalCacheDataFile=getCacheDir().getPath();
+                        String mPhotoFileName=mCurrentPhotoFile.getName();
+                        File compressedPhoto=new File(tempLocalCacheDataFile + File.pathSeparator + mPhotoFileName);
+                        mCurrentPhotoFile=doCompressPhoto(mCurrentPhotoFile,compressedPhoto);
                     }
                     doUploadPicture(mCurrentPhotoFile);
+
+
                 } catch (IOException e) {
-                    ToastUtils.alert(this, "照片处理失败");
-                    e.printStackTrace();
+                    ToastUtils.alert(this, "照片过大，压缩失败");
+                    Logger.t(TAG).e("PHOTO_PICKED_WITH_DATA",e);
                 }
                 break;
+
+
+
+
             case CAMERA_WITH_DATA:
                 try {
-                    while (mCurrentPhotoFile.length() > MAX_IMAGE_SIZE_IN_BYTE) {
-                        doCompressPhoto();
+                    if (mCurrentPhotoFile.length() > MAX_IMAGE_SIZE_IN_BYTE){
+                        String tempLocalCacheDataFile=getCacheDir().getPath();
+                        String mPhotoFileName=mCurrentPhotoFile.getName();
+                        File compressedPhoto=new File(tempLocalCacheDataFile + File.pathSeparator + mPhotoFileName);
+                        mCurrentPhotoFile=doCompressPhoto(mCurrentPhotoFile,compressedPhoto);
                     }
                     doUploadPicture(mCurrentPhotoFile);
+
                 } catch (IOException e) {
                     ToastUtils.alert    (this, "照片处理失败");
-                    e.printStackTrace();
+                    //e.printStackTrace();
+                    Logger.t(TAG).e("CAMERA_WITH_DATA",e);
                 }
                 break;
             default:
@@ -609,46 +629,37 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
         }
     }
 
-    private void doCompressPhoto() throws IOException {
+
+    private static final int bmpCompressStep=3;
+    private File doCompressPhoto(File originalFile,File compressedFile) throws IOException{
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-        Bitmap bmp = BitmapFactory.decodeFile(mCurrentPhotoFile.getPath(),
-                options);
-        options.inSampleSize = (int) Math.ceil(Math.sqrt(mCurrentPhotoFile
+        options.inSampleSize = (int) Math.ceil(Math.sqrt(originalFile
                 .length() / MAX_IMAGE_SIZE_IN_BYTE));
         options.inJustDecodeBounds = false;
-        bmp = BitmapFactory.decodeFile(mCurrentPhotoFile.getPath(), options);
+        Bitmap bmp = BitmapFactory.decodeFile(originalFile.getPath(), options);
+
+        bmp.compress(Bitmap.CompressFormat.JPEG,100 - bmpCompressStep , baos);
+        for (int i=2;baos.toByteArray().length>MAX_IMAGE_SIZE_IN_BYTE;i++){
+            baos.reset();
+            bmp.compress(Bitmap.CompressFormat.JPEG,100 - bmpCompressStep*i , baos);
+        }
+
+        if (compressedFile.exists()){
+            compressedFile.delete();
+        }
         BufferedOutputStream bos = new BufferedOutputStream(
-                new FileOutputStream(mCurrentPhotoFile));
-        bmp.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+                new FileOutputStream(compressedFile));
+        bos.write(baos.toByteArray());
         bos.flush();
         bos.close();
+
+        return  compressedFile;
+
     }
-    /*
 
-        private void doUploadPicture(File photo) {
-            final ProgressDialog dialog = ProgressDialogBuilder.buildNew(mNewCC98Service, this);
-            dialog.show();
-            mNewCC98Service.submitUploadFileRequest(this.getClass(),photo,new RequestResultListener<String>() {
-                @Override
-                public void onRequestComplete(String result) {
-                    picLink = result;
-                    ToastUtils.show(EditActivity.this,"res:" +result);
-                    int cursor = replyContentEditText.getSelectionStart();
-                    replyContentEditText.getText().insert(cursor, picLink);
-                    dialog.dismiss();
-                    ToastUtils.show(EditActivity.this,"res nirmalk:" + result);
-                }
 
-                @Override
-                public void onRequestError(String msg) {
-                    ToastUtils.show(EditActivity.this,"res:" + msg);
-                    dialog.dismiss();
-                    ToastUtils.show(EditActivity.this,"res:" + msg);
-                }
-            });
-        }
-    */
     private void doUploadPicture(File photo) {
         UpLoadPictureTask upTask = new UpLoadPictureTask(this, photo);
         upTask.execute();

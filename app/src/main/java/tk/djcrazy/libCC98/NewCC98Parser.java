@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.orhanobut.logger.Logger;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -132,18 +133,22 @@ public class NewCC98Parser {
 
 
                 //solve markdown parse problems
-                if(getMatchedString(POST_CONTENT_ITEM_MARKDOWN_SYNTAX_CHECK,reply)
-                        .equals(RegexUtil.PraseInfoNotFound)){//no markdown
-
-                    entity.setSupportMarkDownSyntax(false);
-                    entity.setPostContent(getMatchedString(POST_CONTENT_POST_CONTENT_REGEX, reply));
-                }else {
+				try{
+                    String _notused=getMatchedString(POST_CONTENT_ITEM_MARKDOWN_SYNTAX_CHECK,reply);
+                    //no throw,then just apply markdown;
                     entity.setSupportMarkDownSyntax(true);
                     String tmpcoveredContent=getMatchedString(POST_CONTENT_ITEM_MARKDOWN_REGEX, reply).replaceAll("\\s*</textarea>\\s*</div>","</textarea></div>");
                     //convert html-encrypted to normal code
                     String coveredContent = StringEscapeUtils.unescapeHtml4(tmpcoveredContent);
                     entity.setPostContent(coveredContent);
+
+                }catch (ParseContentException e){
+                    //no markdown;
+                    entity.setSupportMarkDownSyntax(false);
+                    entity.setPostContent(getMatchedString(POST_CONTENT_POST_CONTENT_REGEX, reply));
+
                 }
+
 
 
 
@@ -230,13 +235,19 @@ public class NewCC98Parser {
 		String boardinfo = html;
 		List<String> board = getMatchedStringList(P_BOARD_SINGLE_BOARD_WRAPPER_REGEX, boardinfo, 0);
 		for (String string : board) {
+            //for each board;
 			BoardEntity entity = new BoardEntity();
-			entity.setBoardID(getMatchedString(P_BOARD_ID_REGEX, string));
+            String currentBoardID=getMatchedString(P_BOARD_ID_REGEX, string);
+			entity.setBoardID(currentBoardID);
+			/*
 			try {
 				entity.setChildBoardNumber(Integer.parseInt(getMatchedString(CC98ParseRepository.P_IS_PARENT_BOARD_REGEX, string)));
 			} catch (ParseContentException e) {
 				entity.setChildBoardNumber(0);
 			}
+			*/
+            entity.setChildBoardNumber(0);
+
 			try {
 				entity.setPostNumberToday(Integer.parseInt(getMatchedString(
 						P_BOARD_POST_NUMBER_TODAY, string)));
@@ -295,7 +306,7 @@ public class NewCC98Parser {
 				entity.setPostNumberToday(Integer.parseInt(getMatchedString(
 						CC98ParseRepository.LIST_BOARD_POST_NUMBER_TODAY, string)));
 			} catch (Exception e) {
-                Log.e(NewCC98Parser.class.getSimpleName(), "parseBoardList failed", e);
+                Logger.t(NewCC98Parser.class.getSimpleName()).i("parseBoardList failed", e);
 			}
 			nList.add(entity);
 		}
