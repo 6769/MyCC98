@@ -587,7 +587,7 @@ public class NewCC98Parser {
 	}
 
     public String parseMsgContent(String html) {
-        Pattern p = Pattern.compile("(?<=<span id=\"ubbcode1\" >).*?(?=</span>)");
+        Pattern p = Pattern.compile("(?<=<div id=\"ubbcode1\" >).*?(?=</div>)");
         Matcher m = p.matcher(html);
         if (!m.find()) {
             throw new IllegalStateException("can not get msg content");
