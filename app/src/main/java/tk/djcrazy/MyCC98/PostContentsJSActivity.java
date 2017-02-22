@@ -30,6 +30,7 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.webkit.HttpAuthHandler;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.LayoutAlgorithm;
@@ -275,6 +276,11 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
 		return false;
 	}
 
+    protected class JsInterfaceObject {
+        @JavascriptInterface
+        public String toString() { return "injectedObject"; }
+    }
+
 	@SuppressWarnings("deprecation")
 	private void configureWebView() {
 		SharedPreferences sharedPref = PreferenceManager
@@ -285,7 +291,7 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
 				true);
 		final WebSettings webSettings = webView.getSettings();
 		webSettings.setJavaScriptEnabled(true);
-		webSettings.setPluginsEnabled(true);
+		//webSettings.setPluginsEnabled(true);
 		webSettings.setDefaultFontSize(14);
 		webSettings.setLoadsImagesAutomatically(showImage);
 		webSettings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
@@ -301,7 +307,11 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
 		}
 		webSettings.setAppCacheEnabled(enableCache);
 		webView.setOnScrollChangedCallback(this);
- 		webView.addJavascriptInterface(this, JS_INTERFACE);
+
+        //http://www.jianshu.com/p/93cea79a2443
+        //Security Problems here;
+        //2017-02-21 added
+ 		webView.addJavascriptInterface(new JsInterfaceObject(), JS_INTERFACE);
  		setWebChromeClient();
 		webView.setWebViewClient(new WebViewClient() {
 			@Override

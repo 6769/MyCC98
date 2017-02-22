@@ -6,7 +6,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:2.2.3'
 	}
 }
-apply plugin: 'android-library'
+apply plugin: 'com.android.library'
 repositories {
   mavenCentral()
 }
@@ -17,11 +17,11 @@ dependencies {
 
 android {
 
-	compileSdkVersion 16
+	compileSdkVersion 25
 	buildToolsVersion "25.0.2"
 	defaultConfig {
 		minSdkVersion 8
-		targetSdkVersion 16
+		targetSdkVersion 25
 	}
 
     sourceSets {

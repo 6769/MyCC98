@@ -19,7 +19,7 @@ package com.android.volley.toolbox;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.net.http.AndroidHttpClient;
+//import android.net.http.AndroidHttpClient;
 import android.os.Build;
 
 import com.android.volley.Network;
