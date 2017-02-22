@@ -52,6 +52,7 @@ import tk.djcrazy.libCC98.exception.CC98Exception;
 public class MyApplication extends Application {
     public static final String USERS_STRING_INFO = "userStringData";
     public static final String USER_AVATAR_PREFIX = "userAvatar.png";
+    public static final int MIN_SDK_VERSION=19;
     private static Context mContext;
     public RequestQueue mRequestQueue;
     public ImageLoader mImageLoader;

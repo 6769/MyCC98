@@ -278,7 +278,18 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
 
     protected class JsInterfaceObject {
         @JavascriptInterface
-        public String toString() { return "injectedObject"; }
+        public void showContextMenu(final int index) {
+            final CharSequence[] items = {"引用", "站短", "加为好友","查看", "取消"};
+            AlertDialog.Builder builder = new AlertDialog.Builder(PostContentsJSActivity.this);
+            builder.setTitle("选择操作");
+            builder.setItems(items, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int item) {
+                    showContentDialog(index, item);
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 
 	@SuppressWarnings("deprecation")
@@ -466,18 +477,7 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
 		startActivity(intent);
 	}
 
-    public void showContextMenu(final int index) {
-        final CharSequence[] items = {"引用", "站短", "加为好友","查看", "取消"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("选择操作");
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
-                showContentDialog(index, item);
-             }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
+
 
 
 

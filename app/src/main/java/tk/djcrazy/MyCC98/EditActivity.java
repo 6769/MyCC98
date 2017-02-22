@@ -1,10 +1,12 @@
 package tk.djcrazy.MyCC98;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +21,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.text.Html;
@@ -62,6 +65,7 @@ import roboguice.inject.ContentView;
 import roboguice.inject.InjectExtra;
 import roboguice.inject.InjectView;
 import tk.djcrazy.MyCC98.adapter.EmotionGridViewAdapter;
+import tk.djcrazy.MyCC98.application.MyApplication;
 import tk.djcrazy.MyCC98.helper.TextHelper;
 import tk.djcrazy.MyCC98.util.DisplayUtil;
 import tk.djcrazy.MyCC98.util.Intents;
@@ -587,7 +591,7 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
 
 
 
-                if (Build.VERSION.SDK_INT>21){
+                if (Build.VERSION.SDK_INT> MyApplication.MIN_SDK_VERSION){
                     //after kitkat;
                     picURI=getImagePathOnKitKat(uri);
 
@@ -658,13 +662,32 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
         return path;
     }
 
+    @TargetApi(MyApplication.MIN_SDK_VERSION)
     private String getImagePathOnKitKat(Uri uri){
-        String path=null;
+        String imagePath=null;
+        Logger.t(TAG).d("handle Image On KitKat: uri is " + uri);
+        if (DocumentsContract.isDocumentUri(this, uri)) {
+            // 如果是document类型的Uri，则通过document id处理
+            String docId = DocumentsContract.getDocumentId(uri);
+            if("com.android.providers.media.documents".equals(uri.getAuthority())) {
+                String id = docId.split(":")[1]; // 解析出数字格式的id
+                String selection = MediaStore.Images.Media._ID + "=" + id;
+                imagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
+            } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
+                Uri contentUri = ContentUris.withAppendedId(
+                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
+                imagePath = getImagePath(contentUri, null);
+            }
+        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            // 如果是content类型的Uri，则使用普通方式处理
+            imagePath = getImagePath(uri, null);
+        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            // 如果是file类型的Uri，直接获取图片路径即可
+            imagePath = uri.getPath();
+        }
 
 
-
-
-        return path;
+        return imagePath;
     }
 
 
