@@ -69,7 +69,7 @@ android {
             def outputFile = output.outputFile
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 //这里修改apk文件名
-                def fileName = "mycc98-${defaultConfig.versionName}.apk"
+                def fileName = "mycc98-${defaultConfig.versionName}-"+getGitBranch()+".apk"
                 output.outputFile = new File(outputFile.parent, fileName)
             }
         }
@@ -95,6 +95,12 @@ def getSelfDefinedVersion(type) {
         String sha1 = process.getText().trim()
         "$aa.$bb.$cccc.$today.$sha1"
     }
+}
+def getGitBranch(){
+    Process process="git symbolic-ref --short HEAD".execute()
+    process.waitFor()
+    String brachname=process.getText().trim()
+    brachname
 }
 
 
