@@ -33,7 +33,7 @@
             android:value="General" />
         <meta-data
             android:name="BaiduMobAd_STAT_ID"
-            android:value="3c22e62623" />
+            android:value="d3ccce9191" />
         <meta-data
             android:name="BaiduMobAd_SEND_STRATEGY"
             android:value="APP_START" />
