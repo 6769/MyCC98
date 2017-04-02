@@ -44,6 +44,7 @@ android {
         targetSdkVersion 25
         versionCode getSelfDefinedVersion("code")
         versionName getSelfDefinedVersion("name")
+        resConfigs "en"
 
     }
 
@@ -56,6 +57,7 @@ android {
         release {
             minifyEnabled false
             shrinkResources false
+
             //proguardFile ('proguard-project.txt')
 
         }

@@ -711,7 +711,8 @@ public abstract class IcsAdapterView<T extends Adapter> extends ViewGroup {
             // Force one here to make sure that the state of the list matches
             // the state of the adapter.
             if (mDataChanged) {
-                this.onLayout(false, getLeft(), getTop(), getRight(), getBottom());
+                //this.onLayout(false, getLeft(), getTop(), getRight(), getBottom());
+                this.layout(getLeft(), getTop(), getRight(), getBottom());
             }
         } else {
             if (mEmptyView != null) mEmptyView.setVisibility(View.GONE);
