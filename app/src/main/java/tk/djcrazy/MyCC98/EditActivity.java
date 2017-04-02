@@ -500,6 +500,7 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
         }
     }
 
+    @SuppressWarnings("deprecation")
     private void setFace(String faceTitle, int faceImg) {
         int start = replyContentEditText.getSelectionStart();
         Spannable ss = replyContentEditText.getText().insert(start,

@@ -203,8 +203,9 @@ public class CC98ClientImpl implements ICC98Client {
         String uploadedImageURL=RegexUtil.getMatchedString(
                 CC98ParseRepository.UPLOAD_PIC_ADDRESS_REGEX,
                 sTotalString);
+        String fileType=uploadedImageURL.substring(uploadedImageURL.lastIndexOf('.')+1);
 
-        return String.format(CC98ParseRepository.UPLOAD_PIC_ADDRESS_TEMPLATE,uploadedImageURL);
+        return String.format(CC98ParseRepository.UPLOAD_PIC_ADDRESS_TEMPLATE,fileType,uploadedImageURL);
     }
 
     @Override

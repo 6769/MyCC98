@@ -597,7 +597,7 @@ public class NewCC98Parser {
 
     public String parseUploadPicture(String html) throws ParseContentException {
         return RegexUtil.getMatchedString(
-                CC98ParseRepository.UPLOAD_PIC_ADDRESS_REGEX, html)
-                .replace(",1", "");
+                CC98ParseRepository.UPLOAD_PIC_ADDRESS_REGEX, html);
+                //.replace(",1", "");
     }
 }

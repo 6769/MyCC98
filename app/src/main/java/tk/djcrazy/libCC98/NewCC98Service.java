@@ -310,7 +310,7 @@ public class NewCC98Service {
             @Override
             public void onResponse(String response) {
                 try {
-                    System.out.println(response);
+                    Logger.i(response);
                     String res = mCC98Parser.parseUploadPicture(response);
                     listener.onRequestComplete(res);
                 } catch (Exception e) {

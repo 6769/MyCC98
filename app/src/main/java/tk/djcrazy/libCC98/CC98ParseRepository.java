@@ -76,7 +76,7 @@ public class CC98ParseRepository {
  	public static final String HOT_TOPIC_CLICK_REGEX = "(?<=align=middle class=tablebody\\d>).*?(?=</td>)";
  	
  	public static final String UPLOAD_PIC_ADDRESS_REGEX = "http://file.cc98.org/uploadfile/\\d+/\\d+/\\d+/\\d+\\.\\w+";
-	public static final String UPLOAD_PIC_ADDRESS_TEMPLATE ="[upload=jpg,0]%s[/upload]";
+	public static final String UPLOAD_PIC_ADDRESS_TEMPLATE ="[upload=%s,0]%s[/upload]";
  	
  	public static final String TODAY_POST_NUMBER_REGEX = "(?<=今日帖数：)\\d*?(?= )";
  	public static final String TODAY_BOARD_ENTITY_REGEX = "list\\.asp\\?boardid=.*?</td></tr>";
