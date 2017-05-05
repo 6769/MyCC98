@@ -3,36 +3,24 @@
 
     <item
         android:id="@+id/refresh"
-        android:icon="@drawable/ic_action_refresh"
+        android:icon="@drawable/ic_refresh_white_24dp"
         android:showAsAction="ifRoom"
         android:title="@string/refresh" />
-    <item
-        android:icon="@drawable/ic_action_overflow"
-        android:showAsAction="ifRoom">
-        <menu>
-            <!--            <item
 
-                            android:id="@+id/menu_pre_page"
-                            android:icon="@drawable/pre_page"
-                            android:showAsAction="ifRoom"
-                            android:title="上一页" />
-                        <item
-                            android:id="@+id/menu_reply"
-                            android:icon="@drawable/reply"
-                            android:showAsAction="ifRoom"
-                            android:title="回复" />
-                        <item
-                            android:id="@+id/menu_next_page"
-                            android:icon="@drawable/next_page"
-                            android:showAsAction="ifRoom"
-                            android:title="下一页" />
-            -->
-            <item
-                android:id="@+id/show_all_image"
-                android:title="显示图片" />
-            <item
-                android:id="@+id/menu_jump"
-                android:title="跳转" />
-        </menu>
-    </item>
+    <item
+        android:id="@+id/menu_share"
+        android:showAsAction="never"
+        android:icon="@drawable/ic_share_white_24dp"
+        android:title="@string/menu_post_content_share" />
+    <item
+        android:id="@+id/show_all_image"
+        android:showAsAction="never"
+        android:icon="@drawable/ic_photo_library_white_24dp"
+        android:title="@string/menu_post_content_show_photo" />
+    <item
+        android:id="@+id/menu_jump"
+        android:icon="@drawable/ic_swap_horiz_white_24dp"
+        android:showAsAction="never"
+        android:title="@string/menu_post_content_jump" />
+
 </menu>

@@ -28,7 +28,8 @@ dependencies {
 	compile 'com.orhanobut:logger:1.15'
 	compile 'com.google.code.gson:gson:2.8.0'
 	compile ('com.octo.android.robospice:robospice:1.4.6')  {
-		exclude module: 'support-v4'
+        exclude group: 'org.apache.commons', module: 'commons-io'
+        exclude module: 'support-v4'
 	}
 }
 	
@@ -37,11 +38,11 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
     }
-    compileSdkVersion 25
+    compileSdkVersion 22
     buildToolsVersion "25.0.2"
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 22
         versionCode getSelfDefinedVersion("code")
         versionName getSelfDefinedVersion("name")
         resConfigs "en"
@@ -55,10 +56,10 @@ android {
         }
 
         release {
-            minifyEnabled false
-            shrinkResources false
+            minifyEnabled true
+            shrinkResources true
 
-            //proguardFile ('proguard-project.txt')
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
         }
     }

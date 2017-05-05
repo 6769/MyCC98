@@ -56,6 +56,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import roboguice.inject.ContentView;
@@ -270,7 +271,10 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
 		case R.id.show_all_image:
 			webView.loadUrl("javascript:showAllImages.fireEvent('click');");
 			break;
- 		default:
+            case R.id.menu_share:
+                sharePostContent();
+                break;
+            default:
 			break;
 		}
 		return false;
@@ -437,6 +441,18 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
         }
     }
 
+
+    public void sharePostContent() {
+
+        String title = postName;
+        String share_url = String.format(Locale.getDefault(), getString(R.string.menu_share_format),
+                title, boardId, postId, currPageNum);
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, share_url);
+        intent.setType("text/plain");
+        startActivity(Intent.createChooser(intent, "Share cc98, share your life"));
+    }
+
 	public void jumpDialog() {
 		final EditText jumpEditText = new EditText(this);
 		jumpEditText.setFocusableInTouchMode(true);
@@ -495,7 +511,8 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
 		case 1:
 			// send pm
 			if (item.getUserName().contains(getString(R.string.anonymousBoard))){
-                Toast.makeText(this,getString(R.string.anonymousBoardToast),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this,getString(R.string.anonymousBoardToast),Toast.LENGTH_SHORT).show();
+                mkToast(getString(R.string.anonymousBoardToast));
                 break;
             }
 			sendPm(item.getUserName());

@@ -87,4 +87,8 @@
 	<string name="application_update_link">https://api.cc98.org/Topic/Hot</string>
 	<string name="anonymousBoard">匿名</string>
 	<string name="anonymousBoardToast">心灵♂之约♀, 嘘~</string>
+    <string name="menu_share_format" formatted="false">%s(分享自CC98) http://www.cc98.org/dispbbs.asp?BoardID=%s\u0026id=%s\u0026star=%d</string>
+    <string name="menu_post_content_jump">跳转</string>
+    <string name="menu_post_content_share">分享</string>
+    <string name="menu_post_content_show_photo">显示图片</string>
 </resources>
