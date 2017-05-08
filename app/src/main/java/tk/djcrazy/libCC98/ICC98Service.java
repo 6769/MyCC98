@@ -55,6 +55,9 @@ public interface ICC98Service {
 	public void reply(String boardId, String postId, String title, String faceString, String content)
 			throws Exception;
 
+    public void reply(String boardId, String postId, String title, String faceString, String content, String afkey)
+            throws Exception;
+
 	public List<SearchResultEntity> searchPost(String keyword, String boardId, String sType,
 			int page) throws ParseException, IOException, ParseContentException,
 			java.text.ParseException;

@@ -106,6 +106,9 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
     private static final File PHOTO_DIR = new File(
             Environment.getExternalStorageDirectory() + "/Camera");
 
+    @InjectExtra(value = Intents.EXTRA_POST_AFKTOKEN, optional = true)
+    private String mAFKToken;
+
     @InjectExtra(Intents.EXTRA_REQUEST_TYPE)
     private int requestType;
     @InjectExtra(value = Intents.EXTRA_BOARD_ID, optional = true)
@@ -471,7 +474,8 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
                 break;
             case R.id.edit_btn_at:
                 //TODO: add edit posted content function;
-                ToastUtils.info(this, "@功能暂未完成");
+                ToastUtils.info(this, "@功能暂未完成");//return;
+
                 int cursor = replyContentEditText.getSelectionStart();
                 replyContentEditText.getText().insert(cursor, "@");
                 friendsListPopupWindow.show();
@@ -621,7 +625,7 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
 
                 } catch (IOException e) {
                     ToastUtils.alert(this, "照片过大，压缩失败");
-                    Logger.t(TAG).e("PHOTO_PICKED_WITH_DATA",e);
+                    Logger.t(TAG).e(e, "PHOTO_PICKED_WITH_DATA");
                 }
                 break;
 
@@ -641,7 +645,7 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
                 } catch (IOException e) {
                     ToastUtils.alert    (this, "拍摄图片处理失败");
                     //e.printStackTrace();
-                    Logger.t(TAG).e("CAMERA_WITH_DATA",e);
+                    Logger.t(TAG).e(e, "CAMERA_WITH_DATA");
                 }
                 break;
             default:
@@ -768,6 +772,7 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
         private String mContent;
         private String mTitle;
         private String mFaceExpression;
+        private String mAFKToken_inner;
         private boolean mIsNewPost;
         @Inject
         private CachedCC98Service mService;
@@ -782,6 +787,7 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
             mTitle = title;
             mFaceExpression = face;
             mIsNewPost = isNewPost;
+            mAFKToken_inner = EditActivity.this.mAFKToken;
         }
 
         @Override
@@ -797,7 +803,7 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
                         mContent);
             } else {
                 mService.reply(mBoardID, mPostId, mTitle, mFaceExpression,
-                        mContent);
+                        mContent, mAFKToken_inner);
             }
             return null;
         }
@@ -811,7 +817,7 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
 
         @Override
         protected void onException(Exception e) {
-            ToastUtils.alert(context, "请求失败，请检查网络或连接");
+            ToastUtils.alert(context, "请求失败，请检查网络/连接");
         }
 
     }

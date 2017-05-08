@@ -75,8 +75,9 @@ public class CC98ServiceImpl implements ICC98Service {
 	}
 
 	@Override
-	public void reply(String boardId, String rootId, String title, String faceString, String content)
-			throws Exception {
+    public void reply(String boardId, String rootId, String title, String faceString, String content,
+                      String afkey)
+            throws Exception {
 		List<NameValuePair> nvpsList = new ArrayList<NameValuePair>();
 		nvpsList.add(new BasicNameValuePair("upfilername", ""));
 		nvpsList.add(new BasicNameValuePair("followup", rootId));
@@ -87,8 +88,27 @@ public class CC98ServiceImpl implements ICC98Service {
 		nvpsList.add(new BasicNameValuePair("Expression", faceString));
 		nvpsList.add(new BasicNameValuePair("Content", content));
 		nvpsList.add(new BasicNameValuePair("signflag", "yes"));
-		cc98Client.submitReply(nvpsList, boardId, rootId);
+        nvpsList.add(new BasicNameValuePair("AFToken", afkey));
+        cc98Client.submitReply(nvpsList, boardId, rootId);
 	}
+
+    @Override
+    public void reply(String boardId, String rootId, String title, String faceString, String content
+    )
+            throws Exception {
+        List<NameValuePair> nvpsList = new ArrayList<NameValuePair>();
+        nvpsList.add(new BasicNameValuePair("upfilername", ""));
+        nvpsList.add(new BasicNameValuePair("followup", rootId));
+        nvpsList.add(new BasicNameValuePair("rootID", rootId));
+        nvpsList.add(new BasicNameValuePair("star", ""));
+        nvpsList.add(new BasicNameValuePair("TotalUseTable", "bbs5"));
+        nvpsList.add(new BasicNameValuePair("subject", title));
+        nvpsList.add(new BasicNameValuePair("Expression", faceString));
+        nvpsList.add(new BasicNameValuePair("Content", content));
+        nvpsList.add(new BasicNameValuePair("signflag", "yes"));
+        //nvpsList.add(new BasicNameValuePair("",afkey));
+        cc98Client.submitReply(nvpsList, boardId, rootId);
+    }
 
 	@Override
 	public List<SearchResultEntity> searchPost(String keyword, String boardid, String sType,

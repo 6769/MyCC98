@@ -40,6 +40,8 @@ public class Intents {
 	public static final String EXTRA_BOARD_NAME = INTENT_EXTRA_PREFIX
 			+ "BOARD_NAME";
 
+    public static final String EXTRA_POST_AFKTOKEN = INTENT_EXTRA_PREFIX + "POST_AFK_TOKEN";
+
 	public static final String EXTRA_POST_ID = INTENT_EXTRA_PREFIX + "POST_ID";
 	public static final String EXTRA_POST_NAME = INTENT_EXTRA_PREFIX
 			+ "POST_NAME";
@@ -120,6 +122,10 @@ public class Intents {
 		public Builder postName(String name) {
 			return add(EXTRA_POST_NAME, name);
 		}
+
+        public Builder currentAFKToken(String key) {
+            return add(EXTRA_POST_AFKTOKEN, key);
+        }
 
 		public Builder replyUserName(String name) {
 			return add(EXTRA_REPLY_USER_NAME, name);

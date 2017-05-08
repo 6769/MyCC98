@@ -52,6 +52,7 @@ import tk.djcrazy.libCC98.util.RequestResultListener;
  */
 @Singleton
 public class NewCC98Service {
+    public static final String TAG = "NewCC98Service";
 
 
     @Inject
@@ -215,14 +216,14 @@ public class NewCC98Service {
                     List<PostContentEntity> result = mCC98Parser.parsePostContentList(response);
                     listener.onRequestComplete(result);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Logger.t(TAG).e(e, "post error");//e.printStackTrace();
                     listener.onRequestError(e.getMessage());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
+                Logger.t(TAG).e(error, "post error");//error.printStackTrace();
                 listener.onRequestError(error.getMessage());
             }
         });

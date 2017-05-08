@@ -119,10 +119,10 @@ public class CachedCC98Service {
 	}
 
 	public void reply(String boardId, String postId, String title,
-			String faceString, String content) throws ClientProtocolException,
-			IOException, Exception {
-		service.reply(boardId, postId, title, faceString, content);
-	}
+                      String faceString, String content, String afkey) throws ClientProtocolException,
+            IOException, Exception {
+        service.reply(boardId, postId, title, faceString, content, afkey);
+    }
 
 	public List<SearchResultEntity> searchPost(String keyword, String boardid,
 			String sType, int page) throws ParseException, IOException,

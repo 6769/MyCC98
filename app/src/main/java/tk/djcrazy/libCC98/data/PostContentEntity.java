@@ -166,6 +166,14 @@ public class PostContentEntity implements Serializable {
 		this.postTime = postTime;
 	}
 
+    public void setAfkey(String k) {
+        afkey = k;
+    }
+
+    public String getAfkey() {
+        return afkey;
+    }
+
     public void setSupportMarkDownSyntax(boolean v){
         supportMarkDownSyntax=v;
     }
@@ -185,4 +193,5 @@ public class PostContentEntity implements Serializable {
 	private Gender gender = Gender.MALE;
     private boolean supportMarkDownSyntax=false;
 	private int relpyId=0;
+    private String afkey = "";
 }

@@ -117,8 +117,11 @@ public class NewCC98Parser {
 		List<PostContentEntity> list = new ArrayList<PostContentEntity>();
 		// get some information of the topic
 		List<String> postInfoList = getMatchedStringList(POST_CONTENT_INFO_REGEX, html, 3);
+
 		PostContentEntity postInfoEntity = new PostContentEntity();
-		postInfoEntity.setPostTopic(filterHtmlDecode(postInfoList.get(0)));
+        postInfoEntity.setAfkey(getMatchedString(SECURITY_AFKTOKEN, html).substring(22));
+        //2017-05-08 22:05:14
+        postInfoEntity.setPostTopic(filterHtmlDecode(postInfoList.get(0)));
 		postInfoEntity.setBoardName(Html.fromHtml(postInfoList.get(1)).toString());
 		postInfoEntity.setTotalPage((int) Math.ceil(Integer.parseInt(postInfoList.get(2)) / 10.0));
 		list.add(postInfoEntity);

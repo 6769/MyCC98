@@ -92,4 +92,6 @@ public class CC98ParseRepository {
  	public static final String NEW_TOPIC_BOARD_ID = "(?<=boardID=)\\d{0,10}?(?=&ID)";	
  	public static final String NEW_TOPIC_TOTAL_POST = "(?<=<font color=\"#FF0000\">)\\d{0,10}?(?=</font>)";
  	public static final String NEW_TOPIC_TIME = "(?<=195\">).*&nbsp;";
+
+    public static final String SECURITY_AFKTOKEN = "name=\"AFToken\" value=\"[\\d\\w]*";
 }	
