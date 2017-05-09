@@ -73,6 +73,20 @@ public class CC98ServiceImpl implements ICC98Service {
 		nvpsList.add(new BasicNameValuePair("Submit", "发 表"));
 		cc98Client.pushNewPost(nvpsList, boardId);
 	}
+	@Override
+	public void pushNewPost(String boardId, String title, String faceString,
+                            String content,String afkey)
+			throws ClientProtocolException, IOException {
+		List<NameValuePair> nvpsList = new ArrayList<NameValuePair>();
+		nvpsList.add(new BasicNameValuePair("upfilername", ""));
+        nvpsList.add(new BasicNameValuePair("AFToken", afkey));
+		nvpsList.add(new BasicNameValuePair("subject", title));
+		nvpsList.add(new BasicNameValuePair("Expression", faceString));
+		nvpsList.add(new BasicNameValuePair("Content", content));
+		nvpsList.add(new BasicNameValuePair("signflag", "yes"));
+		nvpsList.add(new BasicNameValuePair("Submit", "发 表"));
+		cc98Client.pushNewPost(nvpsList, boardId);
+	}
 
 	@Override
     public void reply(String boardId, String rootId, String title, String faceString, String content,

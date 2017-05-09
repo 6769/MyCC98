@@ -55,6 +55,7 @@ public class NewCC98Service {
     public static final String TAG = "NewCC98Service";
 
 
+
     @Inject
     private ICC98UrlManager mUrlManager;
     @Inject

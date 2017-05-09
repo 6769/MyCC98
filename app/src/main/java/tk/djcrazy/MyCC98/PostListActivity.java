@@ -10,6 +10,8 @@ import tk.djcrazy.MyCC98.fragment.PostListFragment;
 import tk.djcrazy.MyCC98.util.Intents;
 import tk.djcrazy.MyCC98.util.Intents.Builder;
 import tk.djcrazy.libCC98.CachedCC98Service;
+import tk.djcrazy.libCC98.NewCC98Service;
+
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.BitmapDrawable;
@@ -29,6 +31,13 @@ public class PostListActivity extends BaseFragmentActivity {
 	private String boardName;
 	@InjectExtra(Intents.EXTRA_BOARD_ID)
 	private String boardId;
+
+    private static String mAFKToken="";
+    public static void setmAFKToken(String k){
+        mAFKToken=k;
+    }
+    public static String getmAFKToken(){return mAFKToken;}
+
 
 	@Inject
 	private CachedCC98Service service;
@@ -62,6 +71,8 @@ public class PostListActivity extends BaseFragmentActivity {
 	private void sendNewPost() {
 		Intents.Builder builder = new Builder(this, EditActivity.class);
 		Intent intent = builder.requestType(EditActivity.REQUEST_NEW_POST)
+                //.currentAFKToken(mAFKToken)
+                .currentAFKToken(mAFKToken)
 				.boardId(boardId).boardName(boardName).toIntent();
 		startActivityForResult(intent, 0);
 	}

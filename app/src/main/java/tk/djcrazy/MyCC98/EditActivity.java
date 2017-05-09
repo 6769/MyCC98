@@ -107,7 +107,7 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
             Environment.getExternalStorageDirectory() + "/Camera");
 
     @InjectExtra(value = Intents.EXTRA_POST_AFKTOKEN, optional = true)
-    private String mAFKToken;
+    private String mAFKToken="";
 
     @InjectExtra(Intents.EXTRA_REQUEST_TYPE)
     private int requestType;
@@ -800,7 +800,7 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
         public Void call() throws Exception {
             if (mIsNewPost) {
                 mService.pushNewPost(mBoardID, mTitle, mFaceExpression,
-                        mContent);
+                        mContent,mAFKToken_inner);
             } else {
                 mService.reply(mBoardID, mPostId, mTitle, mFaceExpression,
                         mContent, mAFKToken_inner);

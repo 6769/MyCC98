@@ -51,6 +51,8 @@ public interface ICC98Service {
 
 	public void pushNewPost(String boardId, String title, String faceString, String content)
 			throws IOException;
+    public void pushNewPost(String boardId, String title, String faceString, String content,String afkey)
+            throws IOException;
 
 	public void reply(String boardId, String postId, String title, String faceString, String content)
 			throws Exception;

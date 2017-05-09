@@ -114,8 +114,8 @@ public class CachedCC98Service {
 	}
 
 	public void pushNewPost(String boardId, String title, String faceString,
-			String content) throws ClientProtocolException, IOException {
-		service.pushNewPost(boardId, title, faceString, content);
+			String content,String afkey) throws ClientProtocolException, IOException {
+		service.pushNewPost(boardId, title, faceString, content,afkey);
 	}
 
 	public void reply(String boardId, String postId, String title,

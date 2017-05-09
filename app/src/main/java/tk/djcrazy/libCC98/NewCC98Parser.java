@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import tk.djcrazy.MyCC98.PostListActivity;
 import tk.djcrazy.libCC98.data.BoardEntity;
 import tk.djcrazy.libCC98.data.BoardStatus;
 import tk.djcrazy.libCC98.data.Gender;
@@ -201,6 +202,8 @@ public class NewCC98Parser {
 	 */
     public List<PostEntity> parsePostList(String html) throws ParseContentException,
 			java.text.ParseException {
+
+        PostListActivity.setmAFKToken(getMatchedString(SECURITY_AFKTOKEN, html).substring(22));
 
 		List<PostEntity> list = new ArrayList<PostEntity>();
 		List<String> contentList = getMatchedStringList(POST_LIST_POST_ENTITY_REGEX, html, -1);
