@@ -503,6 +503,9 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
 
                 // quote & reply
                 String tmpcoveredContent = item.getPostContent().replaceAll("(<br>|<BR>)", "\n");
+                tmpcoveredContent=StringEscapeUtils.unescapeHtml4(tmpcoveredContent);//solve &#22330 's coding bug;
+
+
                 quoteReply(item.getUserName(), DateFormatUtil.convertDateToString(
                         item.getPostTime(), false), tmpcoveredContent, index, currPageNum);
                 break;
@@ -587,7 +590,7 @@ public class PostContentsJSActivity extends BaseActivity implements View.OnClick
         Intents.Builder builder = new Builder(this, EditActivity.class);
         Intent intent = builder.requestType(EditActivity.REQUEST_QUOTE_REPLY)
                 .boardId(boardId).boardName(boardName).postId(postId)
-                .postName(postName).replyUserName(sender)
+                .postName(postName).replyUserName(sender).currentAFKToken(mAFKkey)
                 .replyUserPostTime(postTime).replyContent(postContent)
                 .floorNumber(floorNum).pageNumber(pageNum).toIntent();
         startActivityForResult(intent, 1);

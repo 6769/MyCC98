@@ -303,7 +303,7 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
                                 final String contentString) {
         AlertDialog.Builder builder = new AlertDialog.Builder(EditActivity.this);
         builder.setTitle("提示");
-        builder.setMessage(Html.fromHtml("是否给用户：" + replyUserName + " 发送引用通知？"));
+        builder.setMessage(Html.fromHtml("是否给用户：" + replyUserName + " 发送引用通知?"));
         builder.setPositiveButton("是", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

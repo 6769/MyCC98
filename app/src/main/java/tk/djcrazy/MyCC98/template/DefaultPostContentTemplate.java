@@ -9,6 +9,8 @@ import tk.djcrazy.libCC98.util.DateFormatUtil;
 import android.content.Context;
 import android.util.Log;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 public class DefaultPostContentTemplate implements PostcontentTemplate {
 	
 	private static PostcontentTemplate template = new DefaultPostContentTemplate();
@@ -35,7 +37,7 @@ public class DefaultPostContentTemplate implements PostcontentTemplate {
 			replaceVariable("${gender}", builder, entity.getGender().getName());
 			replaceVariable("${time}", builder,DateFormatUtil.convertDateToString(entity.getPostTime(), true));
 			replaceVariable("${face}", builder, entity.getPostFace());
-			replaceVariable("${content}", builder, entity.getPostContent());
+			replaceVariable("${content}", builder, StringEscapeUtils.unescapeHtml4(entity.getPostContent())		);
 			replaceVariable("${i}", builder,  String.valueOf(i));
  		}
 		builder.append(last);
