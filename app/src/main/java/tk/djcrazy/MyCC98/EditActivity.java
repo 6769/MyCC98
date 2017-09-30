@@ -536,6 +536,10 @@ public class EditActivity extends BaseFragmentActivity implements OnClickListene
             ToastUtils.alert(this, "内容超过限制，请修改");
             return false;
         }
+        if (title.trim().isEmpty() && content.trim().equals(appendTail.trim())) {
+            ToastUtils.alert(this, "标题和内容不能同时为空，请修改");
+            return false;
+        }
         return true;
     }
 
