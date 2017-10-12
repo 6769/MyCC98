@@ -499,25 +499,25 @@ var ubb = {
 		codeSource: []
 	},
 	color: function (str) {
-		return str.replace(/\[color=(.[^\[\"\'\\\(\)\:\;]*)\](.*?)\[\/color\]/gi, "<span style=\"color:$1;\">$2</span>");
+		return str.replace(/\[color=(.[^\[\"\'\\\(\)\:\;]*)\]([\s\S]*?)\[\/color\]/gi, "<span style=\"color:$1;\">$2</span>");
 	},
 	i: function (str) {
-		return str.replace(/\[i\](.*?)\[\/i\]/gi, "<i>$1</i>");
+		return str.replace(/\[i\]([\s\S]*?)\[\/i\]/gi, "<i>$1</i>");
 	},
 	u: function (str) {
-		return str.replace(/\[u\](.*?)\[\/u\]/gi, "<u>$1</u>");
+		return str.replace(/\[u\]([\s\S]*?)\[\/u\]/gi, "<u>$1</u>");
 	},
 	b: function (str) {
-		return str.replace(/\[b\](.*?)(\[\/b\])/gi, "<b>$1</b>");
+		return str.replace(/\[b\]([\s\S]*?)(\[\/b\])/gi, "<b>$1</b>");
 	},
 	del: function (str) {
-		return str.replace(/\[del\](.*?)(\[\/del\])/gi, '<span style="text-decoration:line-through;">$1</span>');
+		return str.replace(/\[del\]([\s\S]*?)(\[\/del\])/gi, '<span style="text-decoration:line-through;">$1</span>');
 	},
 	cursor: function (str) {
-		return str.replace(/\[cursor=([A-Za-z]*)\](.*?)(\[\/cursor\])/gi, '<span style="cursor:$1;">$2</span>');
+		return str.replace(/\[cursor=([A-Za-z]*)\]([\s\S]*?)(\[\/cursor\])/gi, '<span style="cursor:$1;">$2</span>');
 	},
 	english: function (str) {
-		return str.replace(/\[english\](.*?)\[\/english\]/gi, "<font face=\"Arial\">$1</font>");
+		return str.replace(/\[english\]([\s\S]*?)\[\/english\]/gi, "<font face=\"Arial\">$1</font>");
 	},
 	user: function (str) {
 		return str.replace(/\[user\](.[^\[]*)\[\/user\]/gi, "<span onclick=\"window.location.href='dispuser.asp?name=$1'\" style=\"cursor:pointer;\">$1</span>");
@@ -637,10 +637,10 @@ var ubb = {
 		return str;
 	},
 	quote: function (str) {
-		str = str.replace(/\[QUOTE=1\](.*?)\[\/QUOTE\]/gi, "<div style=\"width:100%\" class=\"" + tdclass + "\"><div class=\"quoteMaxHeightDiv\" style=\"overflow:auto; padding:5px 5px 5px 5px;\">$1</div></div>");
-		str = str.replace(/\[QUOTE=0\](.*?)\[\/QUOTE\]/gi, "<div style=\"width:100%\" class=\"" + tdclass + "\"><div style=\"overflow:auto; padding:5px 5px 5px 5px;\">$1</div></div>");
-		str = str.replace(/\[QUOTE\](.*?)\[\/QUOTE\]/gi, "<div style=\"width:100%\" class=\"" + tdclass + "\"><div style=\"overflow:auto; padding:5px 5px 5px 5px;\">$1</div></div>");
-		str = str.replace(/\[QUOTEX\](.*?)<BR>(.*?)\[\/QUOTEX\]/gi, "<div style=\"width:100%\" class=\"" + tdclass + "\"><div style=\"padding-left:5px; line-height:21px;\"><b>$1</b></div><div class=\"quoteMaxHeightDiv\" style=\"overflow:auto; padding-left:5px;\">$2</div></div>");
+		str = str.replace(/\[QUOTE=1\]([\s\S]*?)\[\/QUOTE\]/gi, "<div style=\"width:100%\" class=\"" + tdclass + "\"><div class=\"quoteMaxHeightDiv\" style=\"overflow:auto; padding:5px 5px 5px 5px;\">$1</div></div>");
+		str = str.replace(/\[QUOTE=0\]([\s\S]*?)\[\/QUOTE\]/gi, "<div style=\"width:100%\" class=\"" + tdclass + "\"><div style=\"overflow:auto; padding:5px 5px 5px 5px;\">$1</div></div>");
+		str = str.replace(/\[QUOTE\]([\s\S]*?)\[\/QUOTE\]/gi, "<div style=\"width:100%\" class=\"" + tdclass + "\"><div style=\"overflow:auto; padding:5px 5px 5px 5px;\">$1</div></div>");
+		str = str.replace(/\[QUOTEX\]([\s\S]*?)[\r\n]+([\s\S]*?)\[\/QUOTEX\]/gi, "<div style=\"width:100%\" class=\"" + tdclass + "\"><div style=\"padding-left:5px; line-height:21px;\"><b>$1</b></div><div class=\"quoteMaxHeightDiv\" style=\"overflow:auto; padding-left:5px;\">$2</div></div>");
 		return str;
 	},
 	table: function (str) {

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+</head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="classical.css" />
+    <link rel="stylesheet" href="highlight/default.min.css" />
+    <script type="text/javascript" src="jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="highlight/highlight.min.js"></script>
+ 	<script type="text/javascript" src="mootools.core.js"></script>
+	<script type="text/javascript" src="tools.js"></script>
+    <script type="text/javascript" src="marked.min.js"></script>
+    <script type="text/javascript" src="clientubb.js"></script>
+    
+    <script type="text/javascript" src="parse_mark_down_content.js"></script>
+
+	<meta name="viewport" content="width=device-width, user-scalable=no" />
+</head>
+
+<body>
+<div  class="bg-wrapper">
+    <a href="javascript:;" id="showAllImages"></a>
+    $foreach$
+    <div class="post">
+        <div class="post-info" onclick="PostContentsJSActivity.showContextMenu(${i});">
+            <div class="topic" >
+                <big><strong>${title}ubb code compatibility unit test</strong></big>
+            </div>
+            <!-- <br /><img class="img-avatar" src="${avatar}" height=64 /> -->
+            <div class="name">${author}</div><br />
+            <div class="floor-num">${floor}</div>
+            <!-- <img class="img-gender" src="pic/${gender}.gif"/> -->
+            <div class="time"><small>${time}</small></div><br />
+            <!--<img class="more" src="file:///android_asset/pic/more.png"/>-->
+        </div>
+        <img class="post-face" src="pic/face1.gif" /><br />
+        <div class="post-content">
+            ${content}
+            <div id="ubbcode3" style="white-space: pre-wrap;">mobile app
+
+[b]black
+
+[/b]
+======
+[code]
+import time
+# long term long term long term long term long term long term long term long term long term 
+time.ctime()[/code]
+======
+[quote]1234564654[del]
+13213
+
+[/del]
+
+[/quote]
+
+
+[quotex]123
+
+[/quotex]
+
+</div>
+<script>
+contenttag='ubbcode3';
+var g=$(contenttag).innerHTML.replace(/\<br\>/g, "<BR>").replace(/\r\n/g, '');
+searchubb(contenttag,1,'tablebody1');</script>
+
+        </div>
+    </div>
+    $endeach$
+</div>
+<script type="text/javascript">
+    parse_markdown_content();
+    hljs.initHighlightingOnLoad();
+    
+</script>
+
+</body>
+</html>
